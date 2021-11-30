@@ -427,8 +427,8 @@ export default class MiraCanvas extends Vue {
     this.renderCanvas();
     this.tempCtx = null;
     this.tool = tmpTool;
-    this.pencil = tmpPencil;
-    this.eraser = tmpEraser;
+    this._pencil = tmpPencil;
+    this._eraser = tmpEraser;
   }
 }
 </script>
