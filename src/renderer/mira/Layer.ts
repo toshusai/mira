@@ -10,6 +10,8 @@ export class Layer {
 
   init(width?: number, height?: number) {
     this.canvas = document.createElement("canvas");
+    if (width) this.canvas.width = width;
+    if (height) this.canvas.height = height;
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
     this.ctx.clearRect(
       0,
