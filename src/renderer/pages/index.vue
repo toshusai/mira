@@ -72,6 +72,7 @@ import LayerPanel from "../components/LayerPanel.vue";
 import SideToolBar from "../components/SideToolBar.vue";
 import { findTagInParent } from "../utils/dom";
 import { Eraser, Layer, Pencil, Project, Tool } from "~/mira";
+import { createDefaultProject } from "~/mira/utils";
 
 @Component({
   components: {
@@ -109,17 +110,8 @@ export default class IndexPage extends Vue {
   mounted() {
     loadicons("/mira/static/spectrum-css-icons.svg", () => {});
     loadicons("/mira/static/spectrum-icons.svg", () => {});
-    this.project = new Project();
-    const l1 = new Layer();
-    l1.name = "layer1";
-    l1.init();
-    this.project.root.children.push(l1);
-    const l = new Layer();
-    l.name = "layer2";
-    l.init();
-    this.selectedLayer = l;
-    this.project.root.children.push(l);
-    this.project.resize();
+    this.project = createDefaultProject();
+    this.selectedLayer = this.project.root.children[0];
 
     // Avoid page scroll with stylus, but enable button click.
     document.body.addEventListener(
