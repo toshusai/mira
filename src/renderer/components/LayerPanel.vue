@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop, PropSync } from "vue-property-decorator";
-import { Layer, Project } from "../models/ie/Project";
+import { Layer, Project } from "~/mira";
 
 @Component({})
 export default class LayerPanel extends Vue {

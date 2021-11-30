@@ -21,17 +21,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop, Ref, Watch } from "vue-property-decorator";
-import {
-  Eraser,
-  IPencil,
-  Layer,
-  Pencil,
-  Project,
-  Tool,
-} from "../../models/ie/Project";
-import { getXY } from "../../utils/draw";
-import { getDistance, getAngle } from "../../models/math/utils";
-import { UndoManager } from "../../models/UndoManager";
+import { getXY } from "~/utils/draw";
+import { getDistance, getAngle } from "~/mira/math/utils";
+import { Eraser, IPencil, Layer, Pencil, Project, Tool } from "~/mira";
+import { UndoManager } from "~/mira/UndoManager";
 import { Vector3 } from "~/mira/math/Vector3";
 
 interface History {

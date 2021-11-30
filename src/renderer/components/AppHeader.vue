@@ -24,10 +24,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, PropSync, Ref } from "vue-property-decorator";
-import { Project } from "../models/ie/Project";
-import SettingsDialog from "./modals/SettingsDialog.vue";
-import ImportDialog from "./modals/ImportDialog.vue";
-import ExportDialog from "./modals/ExportDialog.vue";
+import SettingsDialog from "./dialogs/SettingsDialog.vue";
+import ImportDialog from "./dialogs/ImportDialog.vue";
+import ExportDialog from "./dialogs/ExportDialog.vue";
+import { Project } from "~/mira";
 
 @Component({
   components: {

@@ -65,13 +65,13 @@ import { Component, Ref } from "vue-property-decorator";
 // @ts-ignore
 import loadicons from "loadicons";
 // import { TreeItem } from "spec-ui";
-import { Eraser, Layer, Pencil, Project, Tool } from "../models/ie/Project";
-import MiraCanvas from "../components/canvas_panel/MiraCanvas.vue";
+import MiraCanvas from "../components/MiraCanvas.vue";
 import AppHeader from "../components/AppHeader.vue";
 import AppActionBar from "../components/AppActionBar.vue";
 import LayerPanel from "../components/LayerPanel.vue";
 import SideToolBar from "../components/SideToolBar.vue";
 import { findTagInParent } from "../utils/dom";
+import { Eraser, Layer, Pencil, Project, Tool } from "~/mira";
 
 @Component({
   components: {

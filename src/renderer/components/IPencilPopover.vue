@@ -40,7 +40,7 @@
 import { SpPopover } from "@toshusai/spectrum-vue";
 import Vue from "vue";
 import { Component, Prop, PropSync, Ref } from "vue-property-decorator";
-import { IPencil } from "../models/ie/Project";
+import { IPencil } from "~/mira";
 
 @Component({})
 export default class IPencilPopover extends Vue {

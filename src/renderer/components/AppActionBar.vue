@@ -24,8 +24,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, PropSync } from "vue-property-decorator";
-import { UndoManager } from "../models/UndoManager";
 import AppActionBarIconButton from "./AppActionBarIconButton.vue";
+import { UndoManager } from "~/mira/UndoManager";
 
 @Component({
   components: {

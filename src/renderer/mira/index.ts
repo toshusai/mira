@@ -3,3 +3,4 @@ export * from "./Layer";
 export * from "./IPencil";
 export * from "./Tool";
 export * from "./Project";
+export * from "./Eraser";

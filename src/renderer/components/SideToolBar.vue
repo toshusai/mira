@@ -63,9 +63,9 @@
 import { Color, SpActionButton } from "@toshusai/spectrum-vue";
 import Vue from "vue";
 import { Component, PropSync, Ref } from "vue-property-decorator";
-import { Pencil, Project, Tool } from "../models/ie/Project";
 import ColorButton from "./ColorButton.vue";
 import IPencilPopover from "./IPencilPopover.vue";
+import { Pencil, Project, Tool } from "~/mira";
 
 @Component({
   components: {
