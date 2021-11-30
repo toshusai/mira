@@ -23,9 +23,9 @@
       >
         <mira-canvas
           ref="canvas"
-          :pencil="pencil"
-          :tool="tool"
-          :eraser="eraser"
+          :pencilSync.sync="pencil"
+          :toolSync.sync="tool"
+          :eraserSync.sync="eraser"
           :currentLayer="selectedLayer"
           :flipH="flipH"
           :layers="project.root.children"
@@ -73,7 +73,6 @@ import SideToolBar from "../components/SideToolBar.vue";
 import { findTagInParent } from "../utils/dom";
 import { Eraser, Layer, Pencil, Project, Tool } from "~/mira";
 import { createDefaultProject } from "~/mira/utils";
-import { UndoManager } from "~/mira/UndoManager";
 
 @Component({
   components: {

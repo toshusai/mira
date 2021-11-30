@@ -20,29 +20,43 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop, Ref, Watch } from "vue-property-decorator";
+import { Component, Prop, PropSync, Ref, Watch } from "vue-property-decorator";
 import { getXY } from "~/utils/draw";
 import { getDistance, getAngle } from "~/mira/math/utils";
 import { Eraser, IPencil, Layer, Pencil, Project, Tool } from "~/mira";
 import { UndoManager } from "~/mira/UndoManager";
 import { Vector3 } from "~/mira/math/Vector3";
 
+/**
+ * Storke data for undo.
+ * @TODO update memory performance. change to binary.
+ */
 interface History {
   layer: Layer;
   stroke: Vector3[];
+  tool: Tool;
+  pencil: Pencil;
+  eraser: Eraser;
 }
 
 @Component({ components: {} })
 export default class MiraCanvas extends Vue {
-  @Prop({ default: () => new Pencil() }) pencil!: Pencil;
-  @Prop({ default: () => new Eraser() }) eraser!: Pencil;
-  @Prop({ default: Tool.Pencil }) tool!: Tool;
+  @PropSync("pencilSync", { default: () => new Pencil() }) pencil!: Pencil;
+  @PropSync("eraserSync", { default: () => new Eraser() }) eraser!: Eraser;
+  @PropSync("toolSync", { default: Tool.Pencil }) tool!: Tool;
   @Prop({ default: () => [] }) layers!: Layer[];
   @Prop({ default: null }) currentLayer!: Layer | null;
   @Prop({ default: false }) flipH!: boolean;
   @Prop() project!: Project;
 
   @Ref() canvasEl!: HTMLCanvasElement;
+
+  /**
+   * private props for draw.
+   * for avoid not work assign when use sync value in vue.
+   */
+  _pencil!: Pencil;
+  _eraser!: Eraser;
 
   canvasElCtx!: CanvasRenderingContext2D;
 
@@ -151,16 +165,12 @@ export default class MiraCanvas extends Vue {
     // eventEl.addEventListener("touchcancel", this.end, { passive: false });
     this.resize();
     this.init();
-    if (this.layers.length > 0) {
-      // this.width = this.layers[0].canvas.width;
-      // this.height = this.layers[0].canvas.height;
-    }
+
     this.$nextTick(() => this.init());
     this.renderCanvas();
 
-    // setInterval(() => {
-    //   this.zoom(1.01, { x: 1, y: 1 });
-    // }, 100);
+    this._pencil = this.pencil;
+    this._eraser = this.eraser;
   }
 
   clear() {
@@ -177,18 +187,18 @@ export default class MiraCanvas extends Vue {
     this.pageLeft = rect.left;
   }
 
-  drawOnCanvas(point: Vector3, disableRender: boolean = false) {
+  drawPoint(point: Vector3, disableRender: boolean = false) {
     if (!this.ctx) return;
-    this.ctx.strokeStyle = this.pencil.color.toHex();
-    this.ctx.fillStyle = this.pencil.color.toHex();
+    this.ctx.strokeStyle = this._pencil.color.toHex();
+    this.ctx.fillStyle = this._pencil.color.toHex();
     this.ctx.globalCompositeOperation = "source-over";
     if (this.tool == Tool.Eraser) {
       this.ctx.globalCompositeOperation = "destination-out";
     }
 
-    let iPencil: IPencil = this.pencil;
+    let iPencil: IPencil = this._pencil;
     if (this.tool == Tool.Eraser) {
-      iPencil = this.eraser;
+      iPencil = this._eraser;
     }
 
     this.ctx.lineWidth = 0;
@@ -296,7 +306,7 @@ export default class MiraCanvas extends Vue {
     if (!this.isFingerTouch(e)) {
       const p = getXY(this.canvasEl, this.scale, e);
       if (this.flipH) p.x = this.width - p.x;
-      this.drawOnCanvas(p);
+      this.drawPoint(p);
     }
 
     if (e instanceof TouchEvent) {
@@ -329,7 +339,7 @@ export default class MiraCanvas extends Vue {
       const p = getXY(this.canvasEl, this.scale, e);
       if (this.flipH) p.x = this.width - p.x;
       if (e instanceof TouchEvent) this.prevTouchList = e.touches;
-      this.drawOnCanvas(p);
+      this.drawPoint(p);
     }
     e.preventDefault();
   }
@@ -351,7 +361,13 @@ export default class MiraCanvas extends Vue {
       this.prevTouchList[0].touchType == "direct";
     if (!isFinger && this.stroke.length > 0) {
       if (!this.currentLayer) return;
-      this.history.push({ layer: this.currentLayer, stroke: this.stroke });
+      this.history.push({
+        layer: this.currentLayer,
+        stroke: this.stroke,
+        tool: this.tool,
+        pencil: this.pencil.clone(),
+        eraser: this.eraser.clone(),
+      });
       this.$store.commit("setRedo", false);
       UndoManager.main.clearRedo();
 
@@ -389,20 +405,30 @@ export default class MiraCanvas extends Vue {
 
   drawStrokes(histories: History[]) {
     if (!this.currentLayer) return;
+
+    const tmpTool = this.tool;
+    const tmpPencil = this.pencil;
+    const tmpEraser = this.eraser;
     for (let i = 0; i < histories.length; i++) {
       const history = histories[i];
       this.tempCtx = history.layer.ctx;
       this.prevPoint = null;
+      this.tool = history.tool;
+      this._pencil = history.pencil;
+      this._eraser = history.eraser;
 
       for (let j = 0; j < history.stroke.length; j++) {
         const point = history.stroke[j];
-        this.drawOnCanvas(point, true);
+        this.drawPoint(point, true);
       }
       this.stroke = [];
       this.prevPoint = null;
     }
     this.renderCanvas();
     this.tempCtx = null;
+    this.tool = tmpTool;
+    this.pencil = tmpPencil;
+    this.eraser = tmpEraser;
   }
 }
 </script>
