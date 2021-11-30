@@ -4,7 +4,9 @@
 
 Mira is a simple Painting/Drawing soft for browser in iPad & Apple Pencil.
 
-![preview](./docs/mira_preview.gif)
+__[Live demo is here](https://toshusai.github.io/mira/)__
+
+<img src="./docs/mira_preview.gif" width="100%">
 
 ## Features
 
@@ -48,10 +50,11 @@ Mira is a simple Painting/Drawing soft for browser in iPad & Apple Pencil.
 ### Import/Export
 - Import :eight_spoked_asterisk:
   - psd :eight_spoked_asterisk:
-  - png/jpg as a layer :construction:
+  - png/jpg/webp as a layer :construction:
 - Export :eight_spoked_asterisk:
   - psd :eight_spoked_asterisk:
-  - png :construction:
+  - png/jpg/webp :construction:
+  - down/up size :construction:
 
 ### Controls
 - :point_up_2: Move with one finger :white_check_mark:
@@ -60,6 +63,7 @@ Mira is a simple Painting/Drawing soft for browser in iPad & Apple Pencil.
 - Undo/Redo :white_check_mark:
 - Keyboard shortcuts :construction:
 - Draw by finger :construction:
+- Flip canvas :white_check_mark:
 
 ### Canvas
 - Change width/height :white_check_mark:
