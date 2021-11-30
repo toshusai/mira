@@ -26,7 +26,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, PropSync, Ref } from "vue-property-decorator";
-import { SpToast } from "~/../../../spectrum-vue/dist";
+import { SpToast } from "@toshusai/spectrum-vue";
 import { Project } from "~/mira";
 import { fileToProject } from "~/mira/utils";
 
