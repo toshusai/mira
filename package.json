@@ -47,7 +47,7 @@
     "@adobe/spectrum-css-workflow-icons": "^1.2.1",
     "@spectrum-css/page": "^3.0.3",
     "@spectrum-css/vars": "^4.0.1",
-    "@toshusai/spectrum-vue": "file:../spectrum-vue",
+    "@toshusai/spectrum-vue": "^0.1.4",
     "ag-psd": "^14.3.2",
     "color-convert": "^2.0.1",
     "core-js": "^3.15.1",
