@@ -1,0 +1,84 @@
+{
+  "name": "mira",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "toshusai",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev:main": "npm-run-all -s dev:main:tsc dev:main:electron",
+    "dev:main:tsc": "cross-env NODE_ENV=development tsc -p src/main/tsconfig.json",
+    "dev:main:electron": "cross-env NODE_ENV=development electron .",
+    "dev:renderer": "nuxt src/renderer",
+    "dev": "npm-run-all -p dev:renderer dev:main",
+    "build": "npm-run-all -s build:renderer build:main -- {@}",
+    "build:renderer": "nuxt generate src/renderer",
+    "build:main": "npm-run-all -s build:main:tsc build:main:electron -- {@}",
+    "build:main:tsc": "tsc -p src/main/tsconfig.json",
+    "build:main:electron": "electron-builder",
+    "build:mac": "npm-run-all build -- --mac",
+    "lint": "eslint -c .eslintrc.json --ext \".ts,.vue\" --ignore-path .gitignore . --fix",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
+  },
+  "build": {
+    "appId": "com.toshusai.mira",
+    "asar": true,
+    "directories": {
+      "output": "build/"
+    },
+    "mac": {
+      "category": "",
+      "target": {
+        "target": "default",
+        "arch": [
+          "arm64"
+        ]
+      }
+    }
+  },
+  "description": "Painting/Drawing software for browser on iPad + Apple Pencil",
+  "keywords": [
+    "painting",
+    "drawing",
+    "ipad",
+    "apple pencil"
+  ],
+  "dependencies": {
+    "@adobe/spectrum-css-workflow-icons": "^1.2.1",
+    "@spectrum-css/page": "^3.0.3",
+    "@spectrum-css/vars": "^4.0.1",
+    "@toshusai/spectrum-vue": "file:../spectrum-vue",
+    "ag-psd": "^14.3.2",
+    "color-convert": "^2.0.1",
+    "core-js": "^3.15.1",
+    "loadicons": "^1.0.0",
+    "nuxt": "^2.15.7",
+    "ts-loader": "8.2.0",
+    "uuid": "^8.3.2",
+    "vue-property-decorator": "^9.1.2"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.15.7",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@types/jest": "^27.0.3",
+    "@types/loadicons": "^1.0.0",
+    "@types/uuid": "^8.3.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "cypress": "^8.5.0",
+    "cypress-file-upload": "^5.0.8",
+    "electron": "^15.2.0",
+    "electron-builder": "^22.13.1",
+    "electron-devtools-installer": "^3.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier-vue": "^3.1.0",
+    "eslint-plugin-vue": "^7.15.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.2",
+    "vue-class-component": "^7.2.6"
+  }
+}
