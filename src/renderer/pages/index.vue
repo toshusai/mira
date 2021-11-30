@@ -73,6 +73,7 @@ import SideToolBar from "../components/SideToolBar.vue";
 import { findTagInParent } from "../utils/dom";
 import { Eraser, Layer, Pencil, Project, Tool } from "~/mira";
 import { createDefaultProject } from "~/mira/utils";
+import { UndoManager } from "~/mira/UndoManager";
 
 @Component({
   components: {

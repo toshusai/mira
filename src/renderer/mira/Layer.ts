@@ -6,8 +6,22 @@ export class Layer {
   ctx!: CanvasRenderingContext2D;
   canvas!: HTMLCanvasElement;
 
-  init() {
+  lastImageData!: ImageData;
+
+  init(width?: number, height?: number) {
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
+    this.ctx.clearRect(
+      0,
+      0,
+      width ?? this.canvas.width,
+      height ?? this.canvas.height
+    );
+    this.lastImageData = this.ctx.getImageData(
+      0,
+      0,
+      width ?? this.canvas.width,
+      height ?? this.canvas.height
+    );
   }
 }

@@ -357,18 +357,18 @@ export default class MiraCanvas extends Vue {
 
       const undo = () => {
         // add Pencil
-        this.layers.forEach((l) =>
-          l.ctx.clearRect(0, 0, this.width, this.height)
-        );
+        this.layers.forEach((l) => {
+          l.ctx.putImageData(l.lastImageData, 0, 0);
+        });
 
         const redoStroke = this.history.splice(this.history.length - 1, 1);
         this.drawStrokes(this.history);
 
         UndoManager.main.pushRedo(() => {
           if (redoStroke.length > 0) {
-            this.layers.forEach((l) =>
-              l.ctx.clearRect(0, 0, this.width, this.height)
-            );
+            this.layers.forEach((l) => {
+              l.ctx.putImageData(l.lastImageData, 0, 0);
+            });
             this.history.push(redoStroke[0]);
             this.drawStrokes(this.history);
             UndoManager.main.push(undo);

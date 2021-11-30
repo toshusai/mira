@@ -89,7 +89,7 @@ export default class LayerPanel extends Vue {
 
   addLayer() {
     const nl = new Layer();
-    nl.init();
+    nl.init(this.project.width, this.project.height);
     nl.canvas.width = this.project.width;
     nl.canvas.height = this.project.height;
     this.project.root.children.push(nl);
