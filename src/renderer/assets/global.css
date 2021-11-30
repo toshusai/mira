@@ -339,8 +339,3 @@ html, body {
       var(--spectrum-global-color-static-gray-500, rgb(188, 188, 188)) 25.5%,
       rgb(0 0 0 / 0%) 25.5%);
 }
-
-@font-face {
-  src: url("/static/RictyDiminished-Regular.ttf");
-  font-family: "Ricty";
-}

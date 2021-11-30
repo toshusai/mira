@@ -107,8 +107,8 @@ export default class IndexPage extends Vue {
   }
 
   mounted() {
-    loadicons("/static/spectrum-css-icons.svg", () => {});
-    loadicons("/static/spectrum-icons.svg", () => {});
+    loadicons("/mira/static/spectrum-css-icons.svg", () => {});
+    loadicons("/mira/static/spectrum-icons.svg", () => {});
     this.project = new Project();
     const l1 = new Layer();
     l1.name = "layer1";
