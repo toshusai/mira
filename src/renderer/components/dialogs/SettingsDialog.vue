@@ -4,6 +4,7 @@
     header="Settings"
     @close="isOpenSettings = false"
   >
+    <sp-field-label>Name</sp-field-label>
     <sp-textfield v-model="name" />
     <div style="display: flex; width: 256px">
       <div style="width: auto">
@@ -15,6 +16,11 @@
         <sp-textfield v-model="height" style="width: auto" />
       </div>
     </div>
+    <sp-divider />
+    <h4>App Info</h4>
+    <div>Version: {{ version }}</div>
+    <sp-link href="https://github.com/toshusai/mira">GitHub</sp-link>
+    <sp-divider />
     <template #footer>
       <sp-button-group :dialog="true">
         <sp-button type="primary" :group="true" @click="close">
@@ -28,6 +34,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, PropSync } from "vue-property-decorator";
+import packageJson from "../../../../package.json";
 import { Project } from "~/mira";
 
 @Component({})
@@ -37,6 +44,7 @@ export default class SettingsDialog extends Vue {
   private width: number = 0;
   private height: number = 0;
   private name: string = "";
+  version = packageJson.version;
 
   public open() {
     this.isOpenSettings = true;
