@@ -36,7 +36,7 @@ __[Live demo is here](https://toshusai.github.io/mira/)__
 - Select :construction:
   - Rect :construction:
   - Free :construction:
-  - Move :construction:
+  - Transform (Homography) :construction:
 
 ### Layers
 - Layers :white_check_mark:
@@ -62,11 +62,12 @@ __[Live demo is here](https://toshusai.github.io/mira/)__
 - :v: Rotate with tow fingers :construction:
 - Undo/Redo :white_check_mark:
 - Keyboard shortcuts :construction:
-- Draw by finger :construction:
 - Flip canvas :white_check_mark:
 
 ### Canvas
 - Change width/height :white_check_mark:
 
 ### Others
-- Color Palette :construction:
+- Color palette :construction:
+- Draw by finger :construction:
+- More brushes :thinking:
