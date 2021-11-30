@@ -35,7 +35,6 @@
     <sp-divider style="margin: 0" />
     <sp-item-list-item
       :selectedItem="selectedLayer"
-      :thumbnail="true"
       :items="project.root.children"
       @pointerdown="selectLayer"
       @move="move"
@@ -76,10 +75,14 @@ export default class LayerPanel extends Vue {
     );
     if (i != -1) {
       this.project.root.children.splice(i, 1);
-      if (this.project.root.children.length > 0) {
-        this.selectedLayer = this.project.root.children[0];
-      } else {
+      if (this.project.root.children.length == 0) {
         this.selectedLayer = null;
+      } else if (this.project.root.children[i - 1]) {
+        this.selectedLayer = this.project.root.children[i - 1];
+      } else if (this.project.root.children[i]) {
+        this.selectedLayer = this.project.root.children[i];
+      } else {
+        this.selectedLayer = this.project.root.children[0];
       }
     }
   }
@@ -90,9 +93,7 @@ export default class LayerPanel extends Vue {
     nl.canvas.width = this.project.width;
     nl.canvas.height = this.project.height;
     this.project.root.children.push(nl);
-    if (this.selectedLayer == null && this.project.root.children.length > 0) {
-      this.selectedLayer = this.project.root.children[0];
-    }
+    this.selectedLayer = nl;
   }
 
   // item: darging
