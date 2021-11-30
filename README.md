@@ -4,6 +4,8 @@
 
 Mira is a simple Painting/Drawing soft for browser in iPad & Apple Pencil.
 
+![preview](./docs/mira_preview.gif)
+
 ## Features
 
 > :white_check_mark: OK  
